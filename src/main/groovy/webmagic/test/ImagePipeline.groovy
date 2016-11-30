@@ -24,11 +24,16 @@ class ImagePipeline extends FilePersistentBase implements Pipeline {
     @Override
     void process(ResultItems resultItems, Task task) {
 
-        setPath('data/webmagic/' + resultItems.get('id').toString() + '/')
+        String subFolderPath = resultItems.get('id')?.toString() == null? 'main result page' : resultItems.get('id').toString()
+
+        setPath('data/webmagic/' + subFolderPath + '/')
 
         saveTextInfo(resultItems)
 
-        downloadImage(path, resultItems.get('img'))
+        if (resultItems.get('img')) {
+            downloadImage(path, resultItems.get('img'))
+        }
+
     }
 
     def saveTextInfo(ResultItems resultItems) {
@@ -66,7 +71,7 @@ class ImagePipeline extends FilePersistentBase implements Pipeline {
                 InputStream is = entity.getContent();
                 FileOutputStream fos = new FileOutputStream(new File(path + filename))
                 int inByte
-                while((inByte = is.read()) != -1)
+                while ((inByte = is.read()) != -1)
                     fos.write(inByte)
                 is.close()
                 fos.close()

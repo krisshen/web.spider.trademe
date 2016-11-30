@@ -40,8 +40,7 @@ public class TradeMeProcessor implements PageProcessor {
 
             //save listing id
             def id = page.getHtml().xpath("//*[@id=\"ListingTitle_noStatusListingNumberContainer\"]/tidyText()").toString().replace("Listing #: ", '')
-            def idValue = id==null ? 'main' : id
-            page.putField('id', idValue)
+            page.putField('id', id)
 
             //'description' xpath: //*[@id="ListingDescription_ListingDescription"]
 
