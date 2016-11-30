@@ -1,0 +1,37 @@
+group 'automation'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+
+//sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile group: 'us.codecraft', name: 'webmagic-core', version: '0.5.3'
+    compile group: 'us.codecraft', name: 'webmagic-extension', version: '0.5.3'
+    compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.3.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.3'
+//    compile "org.springframework.boot:spring-boot-starter-web"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+}
+
+
