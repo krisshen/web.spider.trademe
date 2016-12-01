@@ -35,7 +35,7 @@ public class TradeMeProcessor implements PageProcessor {
             //save title and all information as result
             page.putField(
                     page.getHtml().xpath("//*[@id=\"ListingTitle_title\"]/tidyText()").toString(),
-                    page.getHtml().xpath("//*[@id=\"ListingAttributes\"]/tbody/allText()").toString()
+                    page.getHtml().xpath("//*[@id=\"ListingAttributes\"]/tbody/tidyText()").toString()
             )
 
             //save listing id
