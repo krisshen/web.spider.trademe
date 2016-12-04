@@ -1,5 +1,6 @@
 package spider.trademe.entity
 
+import groovyjarjarantlr.collections.List
 import us.codecraft.webmagic.model.annotation.ExtractBy
 import us.codecraft.webmagic.model.annotation.HelpUrl
 import us.codecraft.webmagic.model.annotation.TargetUrl
@@ -7,16 +8,17 @@ import us.codecraft.webmagic.model.annotation.TargetUrl
 /**
  * Created by kris on 1/12/16.
  */
-@TargetUrl("http://www.trademe.co.nz/property/residential-property-for-sale/auction-*")
+@TargetUrl(value = "http://www.trademe.co.nz/property/residential-property-for-sale/auction-*")
 @HelpUrl("http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt/price-range-200000-400000")
-class Properties {
+class Property {
 
     @ExtractBy("//*[@id=\"ListingTitle_title\"]/tidyText()")
-    private String title
+    public String title
 
-    @ExtractBy("//*[@id=\"ListingAttributes\"]/tbody/allText()")
-    private String information
+    @ExtractBy("//*[@id=\"ListingAttributes\"]/tbody/tidyText()")
+    public String information
 
-    private photos
+    @ExtractBy("//*[@id=\"lbThumbs\"]/*/*/img/@src")
+    public ArrayList<String> photos
 
 }
