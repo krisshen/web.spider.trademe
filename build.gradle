@@ -3,7 +3,13 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
+
+//spring boot configuration
+//apply plugin: 'org.springframework.boot'
+//springBoot {
+//    mainClass = "com.example.Main"
+//}
+
 
 buildscript {
     repositories {
@@ -22,6 +28,7 @@ repositories {
 
 dependencies {
 
+    compile 'com.google.apis:google-api-services-sheets:v4-rev38-1.22.0'
     compile group: 'us.codecraft', name: 'webmagic-core', version: '0.5.3'
     compile group: 'us.codecraft', name: 'webmagic-extension', version: '0.5.3'
     compile group: 'commons-logging', name: 'commons-logging', version: '1.2'

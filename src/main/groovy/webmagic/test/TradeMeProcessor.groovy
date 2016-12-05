@@ -9,14 +9,14 @@ import us.codecraft.webmagic.selector.Selectable
 /**
  * Created by kris on 30/11/16.
  */
-public class TradeMeProcessor implements PageProcessor {
+class TradeMeProcessor implements PageProcessor {
 
     static String url = "http://www.trademe.co.nz/Browse/CategoryAttributeSearchResults.aspx?search=1&cid=5748&sidebar=1&132=PROPERTY&selected135=46&134=15&135=46&216=0&216=0&217=0&217=0&153=&29=House&122=0&122=0&123=0&123=0&49=0&49=450000&178=0&178=0&sidebarSearch_keypresses=0&sidebarSearch_suggested=0"
 
     private Site site = Site.me().setRetryTimes(5).setSleepTime(10)
 
     @Override
-    public void process(Page page) {
+    void process(Page page) {
 
         //main result page
         List<Selectable> resultLinks = page.getHtml().xpath("//*[@class=\"dotted\"]").nodes()
@@ -56,11 +56,11 @@ public class TradeMeProcessor implements PageProcessor {
     }
 
     @Override
-    public Site getSite() {
+    Site getSite() {
         return site
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
 
         TradeMeProcessor tradeMeProcessor = new TradeMeProcessor()
 

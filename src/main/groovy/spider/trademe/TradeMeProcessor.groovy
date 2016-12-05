@@ -15,7 +15,7 @@ class TradeMeProcessor {
 
     private static Site site = Site.me().setRetryTimes(5).setSleepTime(10)
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         OOSpider tradeMeProcessor = OOSpider.create(site, new PropertyModelPipeline(), Property.class)
 
         tradeMeProcessor.addUrl(url).thread(5).run()
