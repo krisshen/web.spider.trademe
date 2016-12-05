@@ -1,6 +1,7 @@
 package spider.trademe.entity
 
 import groovyjarjarantlr.collections.List
+import org.apache.http.annotation.ThreadSafe
 import us.codecraft.webmagic.model.annotation.ExtractBy
 import us.codecraft.webmagic.model.annotation.HelpUrl
 import us.codecraft.webmagic.model.annotation.TargetUrl
@@ -8,8 +9,9 @@ import us.codecraft.webmagic.model.annotation.TargetUrl
 /**
  * Created by kris on 1/12/16.
  */
-@TargetUrl(value = "http://www.trademe.co.nz/property/residential-property-for-sale/auction-*")
+@TargetUrl(value = "http://www.trademe.co.nz/property/residential-property-for-sale/auction-*", sourceRegion = "//*[@class=\"dotted\"]")
 @HelpUrl("http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt/price-range-200000-400000")
+@ThreadSafe
 class Property {
 
     @ExtractBy("//*[@id=\"ListingTitle_title\"]/tidyText()")
@@ -17,6 +19,12 @@ class Property {
 
     @ExtractBy("//*[@id=\"ListingAttributes\"]/tbody/tidyText()")
     public String information
+
+    @ExtractBy("//*[@id=\"ListingAttributes\"]/tbody/tr/th/tidyText()")
+    public ArrayList<String> headers
+
+    @ExtractBy("//*[@id=\"ListingAttributes\"]/tbody/tr/td/tidyText()")
+    public ArrayList<String> values
 
     @ExtractBy("//*[@id=\"lbThumbs\"]/*/*/img/@src")
     public ArrayList<String> photos
