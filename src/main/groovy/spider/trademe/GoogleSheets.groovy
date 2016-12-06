@@ -21,6 +21,8 @@ import java.io.InputStream
  */
 class GoogleSheets {
 
+    static String spreadsheetId = "1Lwj-egwrG-5sn2daxGz_GfgODaZXJj6R7p-gmFzi4Zw"
+
     /** Application name. */
     private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart"
 
@@ -42,7 +44,7 @@ class GoogleSheets {
      * at ~/.credentials/sheets.googleapis.com-java-quickstart
      */
     private static final List<String> SCOPES =
-            Arrays.asList(SheetsScopes.SPREADSHEETS_READONLY);
+            Arrays.asList(SheetsScopes.SPREADSHEETS)
 
     static {
         try {
@@ -60,9 +62,12 @@ class GoogleSheets {
      * @throws IOException
      */
     public static Credential authorize() throws IOException {
+        File initialFile = new File("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json")
+        InputStream targetStream = new FileInputStream(initialFile)
         // Load client secrets.
         InputStream is = GoogleSheets.class.getResourceAsStream("/client_secret.json")
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(is))
+
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(targetStream))
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
@@ -90,26 +95,67 @@ class GoogleSheets {
                 .build()
     }
 
-    public static void main(String[] args) throws IOException {
+    static void uploadToGoogleSheet(List<Object> rowData) {
+
+        Sheets service = getSheetsService()
+
+        String range = "Class Data!A2"
+
+        (0..rowData.size()-1).each { index ->
+            if (rowData.get(index) == null) {
+                rowData.set(index, '')
+            }
+        }
+
+        ValueRange inputValues = new ValueRange()
+        inputValues.setRange(range)
+        List<List<Object>> valueList = new ArrayList<>()
+        valueList.add(rowData)
+        inputValues.setValues(valueList)
+        service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
+    }
+
+    static void main(String[] args) throws IOException {
         // Build a new authorized API client service.
         Sheets service = getSheetsService()
 
         // Prints the names and majors of students in a sample spreadsheet:
         // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-        String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-        String range = "Class Data!A2:E";
+
+        String range = "Class Data!A2:E"
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
-        List<List<Object>> values = response.getValues();
-        if (values == null || values.size() == 0) {
-            System.out.println("No data found.");
-        } else {
-            System.out.println("Name, Major");
-            for (List row : values) {
-                // Print columns A and E, which correspond to indices 0 and 4.
-                System.out.printf("%s, %s\n", row.get(0), row.get(4));
-            }
-        }
+        List<List<Object>> values = response.getValues()
+//        if (values == null || values.size() == 0) {
+//            System.out.println("No data found.")
+//        } else {
+//            System.out.println("Name, Major")
+//            for (List row : values) {
+//                // Print columns A and E, which correspond to indices 0 and 4.
+//                System.out.printf("%s, %s\n", row.get(0), row.get(4))
+//            }
+//        }
+
+        //update test
+//        ValueRange inputValues = new ValueRange();
+//        inputValues.setRange("Class Data!A2");
+//        List<Object> list = new ArrayList<>();
+//        list.add("ccc");
+//        List<List<Object>> valueList = new ArrayList<>();
+//        valueList.add(list);
+//        inputValues.setValues(valueList);
+//        service.spreadsheets().values().update(spreadsheetId, "Class Data!A2", inputValues).setValueInputOption("RAW").execute();
+
+        //append test
+        ValueRange inputValues = new ValueRange();
+        inputValues.setRange("Class Data!A2");
+        List<Object> list = new ArrayList<>();
+        list.add("ddd");
+        List<List<Object>> valueList = new ArrayList<>();
+        valueList.add(list);
+        inputValues.setValues(valueList);
+        service.spreadsheets().values().append(spreadsheetId, "Class Data!A2", inputValues).setValueInputOption("RAW").execute();
+
     }
 }
