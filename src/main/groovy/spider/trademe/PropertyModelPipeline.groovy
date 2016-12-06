@@ -50,12 +50,11 @@ class PropertyModelPipeline implements PageModelPipeline {
         result.add(4, mapData['floor area:'])
         result.add(5, mapData['rateable value (rv):'])
         result.add(6, mapData['price:'])
-        result[7] = ''
+        result.add(7, mapData['property id#:'])
         result.add(8, mapData['parking:'])
         result.add(9, mapData['in the area:'])
         result.add(10, mapData['smoke alarm:'])
         result.add(11, mapData['open home times:'])
-
 
         result
     }
