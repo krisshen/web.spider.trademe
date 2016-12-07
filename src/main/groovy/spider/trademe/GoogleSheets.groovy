@@ -63,8 +63,8 @@ class GoogleSheets {
      * @return an authorized Credential object.
      * @throws IOException
      */
-     static Credential authorize() throws IOException {
-        File initialFile = new File("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json")
+    static Credential authorize() throws IOException {
+        File initialFile = new File(System.getProperty("user.dir") + "/src/main/resources/client_secret.json")
         InputStream targetStream = new FileInputStream(initialFile)
         // Load client secrets.
         InputStream is = GoogleSheets.class.getResourceAsStream("/client_secret.json")
@@ -101,7 +101,7 @@ class GoogleSheets {
 
         range = sheetName + "!A2"
 
-        (0..rowData.size()-1).each { index ->
+        (0..rowData.size() - 1).each { index ->
             if (rowData.get(index) == null) {
                 rowData.set(index, '')
             }

@@ -7,15 +7,14 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.sheets.v4.SheetsScopes;
-import com.google.api.services.sheets.v4.model.*;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.SheetsScopes;
+import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,26 +25,37 @@ import java.util.List;
  * NOTE: before running main method, please setup credential file in your local, see above link -> Step 1: Turn on the Google Sheets API
  */
 public class Quickstart {
-    /** Application name. */
+    /**
+     * Application name.
+     */
     private static final String APPLICATION_NAME =
             "Google Sheets API Java Quickstart";
 
-    /** Directory to store user credentials for this application. */
+    /**
+     * Directory to store user credentials for this application.
+     */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
             System.getProperty("user.home"), ".credentials/sheets.googleapis.com-java-quickstart");
 
-    /** Global instance of the {@link FileDataStoreFactory}. */
+    /**
+     * Global instance of the {@link FileDataStoreFactory}.
+     */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
 
-    /** Global instance of the JSON factory. */
+    /**
+     * Global instance of the JSON factory.
+     */
     private static final JsonFactory JSON_FACTORY =
             JacksonFactory.getDefaultInstance();
 
-    /** Global instance of the HTTP transport. */
+    /**
+     * Global instance of the HTTP transport.
+     */
     private static HttpTransport HTTP_TRANSPORT;
 
-    /** Global instance of the scopes required by this quickstart.
-     *
+    /**
+     * Global instance of the scopes required by this quickstart.
+     * <p>
      * If modifying these scopes, delete your previously saved credentials
      * at ~/.credentials/sheets.googleapis.com-java-quickstart
      */
@@ -64,11 +74,14 @@ public class Quickstart {
 
     /**
      * Creates an authorized Credential object.
+     *
      * @return an authorized Credential object.
      * @throws IOException
      */
     public static Credential authorize() throws IOException {
-        File initialFile = new File("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json");
+        //File initialFile = new File("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json");
+//        File initialFile = new File(System.getProperty("user.dir") + File.separator + ...);
+        File initialFile = new File(System.getProperty("user.dir") + "/src/main/resources/client_secret.json");
         InputStream targetStream = new FileInputStream(initialFile);
         // Load client secrets.
 //        InputStream in = Quickstart.class.getResourceAsStream("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json");
@@ -91,6 +104,7 @@ public class Quickstart {
 
     /**
      * Build and return an authorized Sheets API client service.
+     *
      * @return an authorized Sheets API client service
      * @throws IOException
      */
@@ -108,7 +122,7 @@ public class Quickstart {
         // Prints the names and majors of students in a sample spreadsheet:
         // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
         String spreadsheetId = "1Lwj-egwrG-5sn2daxGz_GfgODaZXJj6R7p-gmFzi4Zw";
-        String range = "Class Data!A2:E";
+        String range = "Lower Hutt Properties!A2:E";
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
@@ -123,14 +137,15 @@ public class Quickstart {
             }
         }
 
-        ValueRange inputValues = new ValueRange();
-        inputValues.setRange("Class Data!A2");
-        List<Object> list = new ArrayList<>();
-        list.add("123");
-        List<List<Object>> valueList = new ArrayList<>();
-        valueList.add(list);
-        inputValues.setValues(valueList);
-        service.spreadsheets().values().update(spreadsheetId, "Class Data!A2", inputValues).setValueInputOption("RAW").execute();
+        //update data
+//        ValueRange inputValues = new ValueRange();
+//        inputValues.setRange("Class Data!A2");
+//        List<Object> list = new ArrayList<>();
+//        list.add("123");
+//        List<List<Object>> valueList = new ArrayList<>();
+//        valueList.add(list);
+//        inputValues.setValues(valueList);
+//        service.spreadsheets().values().update(spreadsheetId, "Class Data!A2", inputValues).setValueInputOption("RAW").execute();
     }
 
 
