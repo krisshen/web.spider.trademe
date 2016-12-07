@@ -36,7 +36,4 @@ class Property {
 
 //    @ExtractBy("//*[@id=\"SearchResults\"]/table/tbody/tr/td[1]/a/@href")
 //    public ArrayList<String> nextPages
-
-    def location = 'Lower Hutt Properties'
-
 }

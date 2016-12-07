@@ -160,6 +160,9 @@ class GoogleSheets {
         inputValues.setValues(valueList)
         service = getSheetsService()
         service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
+    }
 
+    static void clear() {
+        inputValues = new ValueRange()
     }
 }

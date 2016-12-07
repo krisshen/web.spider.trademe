@@ -20,12 +20,11 @@ class PropertyModelPipeline implements PageModelPipeline {
         property = (Property) o
         println '=================================================='
         println property.title
-//        println property.nextPages
 
         def mapData = [:]
-        mapData['title'] = property.title?.replace('\n', '')
-        mapData['trademe id'] = property.tradeMeID?.replace('\n', '')?.replace('Listing #: ','')
-        mapData['listed date'] = property.listedDate?.replace('\n', '')?.replace(' * Listed: ','')
+        mapData['title'] = property.title.replace('\n', '')
+        mapData['trademe id'] = property.tradeMeID?.replace('\n', '').replace('Listing #: ','')
+        mapData['listed date'] = property.listedDate?.replace('\n', '').replace(' * Listed: ','')
 
         def key, value
         (0..property.headers.size() - 1).each { index ->
@@ -38,9 +37,13 @@ class PropertyModelPipeline implements PageModelPipeline {
                 mapData['street'] = locationList[0]
                 mapData['suburb'] = locationList[1]
                 mapData['district'] = locationList[2]
-                //some addresses only have 3 lines
+                //some addresses only have 3 lines, because suburb is same with district
                 if (locationList.length > 3) {
                     mapData['region'] = locationList[3]
+                }
+                else {
+                    mapData['region'] = mapData['district']
+                    mapData['district'] = mapData['suburb']
                 }
             } else {
                 mapData[key] = value
@@ -49,8 +52,7 @@ class PropertyModelPipeline implements PageModelPipeline {
 
         def row = parseResultInRowData(mapData)
 
-        GoogleSheets.prepareDataToGoogleSheet(property.location, row)
-
+        GoogleSheets.prepareDataToGoogleSheet(mapData['district'], row)
     }
 
     def parseResultInRowData(Map mapData) {

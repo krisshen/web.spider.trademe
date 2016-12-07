@@ -12,7 +12,11 @@ import us.codecraft.webmagic.pipeline.FilePipeline
  */
 class TradeMeProcessor {
 
-    static String url = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt"
+    static String url_LH = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt"
+    static String url_WL = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/wellington"
+    static String url_PR = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/porirua"
+
+    static urls = [url_LH, url_WL, url_PR]
 
     private static Site site = Site.me().setRetryTimes(5).setSleepTime(20)
 
@@ -20,10 +24,11 @@ class TradeMeProcessor {
 
         OOSpider tradeMeProcessor = OOSpider.create(site, new PropertyModelPipeline(), Property.class)
 
-        tradeMeProcessor.addUrl(url).thread(5).run()
-
-        GoogleSheets.upload()
-
+        urls.each { url ->
+            GoogleSheets.clear()
+            tradeMeProcessor.addUrl(url).thread(5).run()
+            GoogleSheets.upload()
+        }
     }
 
 }
