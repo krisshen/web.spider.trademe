@@ -10,7 +10,7 @@ import us.codecraft.webmagic.model.annotation.TargetUrl
  * Created by kris on 1/12/16.
  */
 @TargetUrl(value = "http://www.trademe.co.nz/property/residential-property-for-sale/auction-*")
-@HelpUrl("http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt")
+@HelpUrl("http://www.trademe.co.nz/browse/property/regionlistings.aspx?cid=3399&134=15&135=46&rptpath=*&key=*&page=*&sort_order=prop_default")
 @ThreadSafe
 class Property {
 
