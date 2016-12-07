@@ -14,8 +14,6 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.ValueRange
 
-import java.io.InputStream
-
 /**
  * Created by shenk on 12/5/2016.
  */
@@ -61,7 +59,7 @@ class GoogleSheets {
      * @return an authorized Credential object.
      * @throws IOException
      */
-    public static Credential authorize() throws IOException {
+     static Credential authorize() throws IOException {
         File initialFile = new File("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json")
         InputStream targetStream = new FileInputStream(initialFile)
         // Load client secrets.
