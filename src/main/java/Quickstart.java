@@ -79,8 +79,6 @@ public class Quickstart {
      * @throws IOException
      */
     public static Credential authorize() throws IOException {
-        //File initialFile = new File("C:/Users/shenk/.credentials/sheets.googleapis.com-java-quickstart/client_secret.json");
-//        File initialFile = new File(System.getProperty("user.dir") + File.separator + ...);
         File initialFile = new File(System.getProperty("user.dir") + "/src/main/resources/client_secret.json");
         InputStream targetStream = new FileInputStream(initialFile);
         // Load client secrets.

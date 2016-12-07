@@ -67,7 +67,6 @@ class GoogleSheets {
         File initialFile = new File(System.getProperty("user.dir") + "/src/main/resources/client_secret.json")
         InputStream targetStream = new FileInputStream(initialFile)
         // Load client secrets.
-        InputStream is = GoogleSheets.class.getResourceAsStream("/client_secret.json")
 
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(targetStream))
 
