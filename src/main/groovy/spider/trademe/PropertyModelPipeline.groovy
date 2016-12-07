@@ -20,16 +20,12 @@ class PropertyModelPipeline implements PageModelPipeline {
         property = (Property) o
         println '=================================================='
         println property.title
-//        println property.information
-
-//        (0..property.headers.size()-1).each { index ->
-//            println property.headers.get(index) + ' ' + property.values.get(index)
-//        }
+//        println property.nextPages
 
         def mapData = [:]
-        mapData['title'] = property.title.replace('\n', '')
-        mapData['trademe id'] = property.tradeMeID.replace('\n', '').replace('Listing #: ','')
-        mapData['listed date'] = property.listedDate.replace('\n', '').replace(' * Listed: ','')
+        mapData['title'] = property.title?.replace('\n', '')
+        mapData['trademe id'] = property.tradeMeID?.replace('\n', '')?.replace('Listing #: ','')
+        mapData['listed date'] = property.listedDate?.replace('\n', '')?.replace(' * Listed: ','')
 
         def key, value
         (0..property.headers.size() - 1).each { index ->
@@ -49,12 +45,10 @@ class PropertyModelPipeline implements PageModelPipeline {
             } else {
                 mapData[key] = value
             }
-//            mapData[property.headers.get(index).trim().toLowerCase()] = property.values.get(index)
         }
 
         def row = parseResultInRowData(mapData)
 
-//        GoogleSheets.uploadToGoogleSheet(property.location, row)
         GoogleSheets.prepareDataToGoogleSheet(property.location, row)
 
     }
