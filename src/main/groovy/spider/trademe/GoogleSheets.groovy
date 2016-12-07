@@ -106,10 +106,7 @@ class GoogleSheets {
             }
         }
 
-        inputValues.setRange(range)
         valueList.add(rowData)
-
-//        service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
     }
 
     static void main(String[] args) throws IOException {
@@ -157,12 +154,11 @@ class GoogleSheets {
     }
 
     static void upload() {
+        inputValues.setRange(range)
         inputValues.setValues(valueList)
         service = getSheetsService()
         service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
-    }
-
-    static void clear() {
-        inputValues = new ValueRange()
+        //clear data list
+        valueList = new ArrayList<>()
     }
 }

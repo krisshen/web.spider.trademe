@@ -25,7 +25,6 @@ class TradeMeProcessor {
         OOSpider tradeMeProcessor = OOSpider.create(site, new PropertyModelPipeline(), Property.class)
 
         urls.each { url ->
-            GoogleSheets.clear()
             tradeMeProcessor.addUrl(url).thread(5).run()
             GoogleSheets.upload()
         }
