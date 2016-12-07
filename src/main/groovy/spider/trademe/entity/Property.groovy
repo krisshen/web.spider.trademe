@@ -9,13 +9,19 @@ import us.codecraft.webmagic.model.annotation.TargetUrl
 /**
  * Created by kris on 1/12/16.
  */
-@TargetUrl(value = "http://www.trademe.co.nz/property/residential-property-for-sale/auction-*", sourceRegion = "//*[@class=\"dotted\"]")
-@HelpUrl("http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt/price-range-200000-400000")
+@TargetUrl(value = "http://www.trademe.co.nz/property/residential-property-for-sale/auction-*")
+@HelpUrl("http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt")
 @ThreadSafe
 class Property {
 
     @ExtractBy("//*[@id=\"ListingTitle_title\"]/tidyText()")
     public String title
+
+    @ExtractBy("//*[@id=\"ListingTitle_noStatusListingNumberContainer\"]/tidyText()")
+    public String tradeMeID
+
+    @ExtractBy("//*[@id=\"ListingTitle_titleTime\"]/tidyText()")
+    public String listedDate
 
     @ExtractBy("//*[@id=\"ListingAttributes\"]/tbody/tidyText()")
     public String information
@@ -28,5 +34,7 @@ class Property {
 
     @ExtractBy("//*[@id=\"lbThumbs\"]/*/*/img/@src")
     public ArrayList<String> photos
+
+    def location = 'Lower Hutt Properties'
 
 }

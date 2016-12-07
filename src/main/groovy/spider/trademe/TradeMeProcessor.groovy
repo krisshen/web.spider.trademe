@@ -11,7 +11,8 @@ import us.codecraft.webmagic.pipeline.FilePipeline
  */
 class TradeMeProcessor {
 
-    static String url = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt/price-range-200000-400000"
+    //static String url = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt/price-range-200000-400000"
+    static String url = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt"
 
     private static Site site = Site.me().setRetryTimes(5).setSleepTime(20)
 
@@ -20,6 +21,9 @@ class TradeMeProcessor {
         OOSpider tradeMeProcessor = OOSpider.create(site, new PropertyModelPipeline(), Property.class)
 
         tradeMeProcessor.addUrl(url).thread(5).run()
+
+        GoogleSheets.upload()
+
 
     }
 

@@ -20,6 +20,10 @@ import com.google.api.services.sheets.v4.model.ValueRange
 class GoogleSheets {
 
     static String spreadsheetId = "1Lwj-egwrG-5sn2daxGz_GfgODaZXJj6R7p-gmFzi4Zw"
+    static Sheets service
+    static String range
+    static ValueRange inputValues = new ValueRange()
+    static List<List<Object>> valueList = new ArrayList<>()
 
     /** Application name. */
     private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart"
@@ -93,11 +97,9 @@ class GoogleSheets {
                 .build()
     }
 
-    static void uploadToGoogleSheet(List<Object> rowData) {
+    static void prepareDataToGoogleSheet(String sheetName, List<Object> rowData) {
 
-        Sheets service = getSheetsService()
-
-        String range = "Class Data!A2"
+        range = sheetName + "!A2"
 
         (0..rowData.size()-1).each { index ->
             if (rowData.get(index) == null) {
@@ -105,12 +107,10 @@ class GoogleSheets {
             }
         }
 
-        ValueRange inputValues = new ValueRange()
         inputValues.setRange(range)
-        List<List<Object>> valueList = new ArrayList<>()
         valueList.add(rowData)
-        inputValues.setValues(valueList)
-        service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
+
+//        service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
     }
 
     static void main(String[] args) throws IOException {
@@ -154,6 +154,13 @@ class GoogleSheets {
         valueList.add(list);
         inputValues.setValues(valueList);
         service.spreadsheets().values().append(spreadsheetId, "Class Data!A2", inputValues).setValueInputOption("RAW").execute();
+
+    }
+
+    static void upload() {
+        inputValues.setValues(valueList)
+        service = getSheetsService()
+        service.spreadsheets().values().append(spreadsheetId, range, inputValues).setValueInputOption("RAW").execute()
 
     }
 }
