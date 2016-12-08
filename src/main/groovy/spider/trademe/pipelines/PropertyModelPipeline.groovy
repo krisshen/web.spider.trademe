@@ -24,8 +24,8 @@ class PropertyModelPipeline implements PageModelPipeline {
 
         def mapData = [:]
         mapData['title'] = property.title.replace('\n', '')
-        mapData['trademe id'] = property.tradeMeID?.replace('\n', '').replace('Listing #: ','')
-        mapData['listed date'] = property.listedDate?.replace('\n', '').replace(' * Listed: ','')
+        mapData['trademe id'] = property.tradeMeID.replace('\n', '').replace('Listing #: ','')
+        mapData['listed date'] = property.listedDate.replace('\n', '').replace(' * Listed: ','')
 
         def key, value
         (0..property.headers.size() - 1).each { index ->
