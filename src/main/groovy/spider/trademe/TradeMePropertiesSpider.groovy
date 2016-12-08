@@ -22,10 +22,10 @@ class TradeMePropertiesSpider {
 
     static void main(String[] args) {
 
-        OOSpider tradeMeProcessor = OOSpider.create(site, new PropertyModelPipeline(), Property.class)
+        OOSpider tradeMeSpider = OOSpider.create(site, new PropertyModelPipeline(), Property.class)
 
         urls.each { url ->
-            tradeMeProcessor.addUrl(url).thread(5).run()
+            tradeMeSpider.addUrl(url).thread(5).run()
             GoogleSheets.upload()
         }
     }
