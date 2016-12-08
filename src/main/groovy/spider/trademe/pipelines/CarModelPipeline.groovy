@@ -29,7 +29,6 @@ class CarModelPipeline implements PageModelPipeline {
         mapData['listed date'] = car.listedDate.replace('\n', '').replace('* Listed ', '')
         mapData['asking price'] = car.askingPrice?.toString()?.replace(' Or Near Offer', '')?.replace('* Asking price: $', '')?.replace(',', '')?.toFloat()
         // current and start price are same
-        println car.currentBid
         mapData['current bid'] = car.currentBid?.toString()?.replace('* Start price: $', '')?.replace('* Current bid: $', '')?.replace(',', '')?.toFloat()
         mapData['buy now price'] = car.buyNowPrice?.toString()?.replace('Buy Now:  $', '')?.replace(',', '')?.toFloat()
         mapData['year'] = mapData['title'].split(' ')[-1]
@@ -49,10 +48,7 @@ class CarModelPipeline implements PageModelPipeline {
             }
         }
 
-        println mapData
-        println '-------------------------------------'
         def row = parseResultInRowData(mapData)
-        println row
         GoogleSheets.prepareDataToGoogleSheet('Cars', row)
     }
 
