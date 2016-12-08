@@ -10,7 +10,7 @@ import us.codecraft.webmagic.pipeline.FilePipeline
 /**
  * Created by kris on 1/12/16.
  */
-class TradeMeProcessor {
+class TradeMePropertiesSpider {
 
     static String url_LH = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/lower-hutt"
     static String url_WL = "http://www.trademe.co.nz/property/residential-property-for-sale/wellington/wellington"
