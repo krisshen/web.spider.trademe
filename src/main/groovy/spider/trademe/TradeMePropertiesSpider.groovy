@@ -1,11 +1,10 @@
 package spider.trademe
 
-import spider.trademe.entity.Property
-import us.codecraft.webmagic.Request
+import spider.trademe.entities.Property
+import spider.trademe.pipelines.PropertyModelPipeline
+import spider.trademe.utils.GoogleSheets
 import us.codecraft.webmagic.Site
-import us.codecraft.webmagic.model.ConsolePageModelPipeline
 import us.codecraft.webmagic.model.OOSpider
-import us.codecraft.webmagic.pipeline.FilePipeline
 
 /**
  * Created by kris on 1/12/16.

@@ -1,4 +1,4 @@
-package spider.trademe.entity
+package spider.trademe.entities
 
 import org.apache.http.annotation.ThreadSafe
 import us.codecraft.webmagic.model.annotation.ExtractBy

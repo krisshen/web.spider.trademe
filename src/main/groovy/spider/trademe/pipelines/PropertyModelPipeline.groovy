@@ -1,8 +1,9 @@
-package spider.trademe
+package spider.trademe.pipelines
 
 import groovy.transform.Synchronized
 import org.apache.http.annotation.ThreadSafe
-import spider.trademe.entity.Property
+import spider.trademe.utils.GoogleSheets
+import spider.trademe.entities.Property
 import us.codecraft.webmagic.Task
 import us.codecraft.webmagic.pipeline.PageModelPipeline
 
