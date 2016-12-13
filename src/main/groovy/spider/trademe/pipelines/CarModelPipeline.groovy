@@ -3,6 +3,7 @@ package spider.trademe.pipelines
 import groovy.transform.Synchronized
 import org.apache.http.annotation.ThreadSafe
 import spider.trademe.entities.Car
+import spider.trademe.utils.DateProcessor
 import spider.trademe.utils.GoogleSheets
 import us.codecraft.webmagic.Task
 import us.codecraft.webmagic.pipeline.PageModelPipeline
@@ -32,6 +33,8 @@ class CarModelPipeline implements PageModelPipeline {
         mapData['current bid'] = car.currentBid?.toString()?.replace('* Start price: $', '')?.replace('* Current bid: $', '')?.replace(',', '')?.toFloat()
         mapData['buy now price'] = car.buyNowPrice?.toString()?.replace('Buy Now:  $', '')?.replace(',', '')?.toFloat()
         mapData['year'] = mapData['title'].split(' ')[-1]
+        mapData['brand'] = mapData['title'].split(' ')[0]
+        mapData['model'] = mapData['title'].split(' ')[1]
 
         def key, value
         (0..car.headers.size() - 1).each { index ->
@@ -61,16 +64,18 @@ class CarModelPipeline implements PageModelPipeline {
         result.add(3, mapData['asking price'])
         result.add(4, mapData['current bid'])
         result.add(5, mapData['buy now price'])
-        result.add(6, mapData['year'])
-        result.add(7, mapData['kilometres:'])
-        result.add(8, mapData['body:'])
-        result.add(9, mapData['on road costs:'])
-        result.add(10, mapData['fuel type:'])
-        result.add(11, mapData['engine size:'])
-        result.add(12, mapData['transmission:'])
-        result.add(13, mapData['history:'])
-        result.add(14, mapData['registration expires:'])
-        result.add(15, mapData['wof expires:'])
+        result.add(6, mapData['brand'])
+        result.add(7, mapData['model'])
+        result.add(8, mapData['year'])
+        result.add(9, mapData['kilometres:'].toString().toInteger())
+        result.add(10, mapData['body:'])
+        result.add(11, mapData['on road costs:'])
+        result.add(12, mapData['fuel type:'])
+        result.add(13, mapData['engine size:'])
+        result.add(14, mapData['transmission:'])
+        result.add(15, mapData['history:'])
+        result.add(16, mapData['registration expires:'])
+        result.add(17, mapData['wof expires:'])
 
         result
     }

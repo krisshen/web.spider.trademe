@@ -11,7 +11,7 @@ import us.codecraft.webmagic.model.OOSpider
  */
 class TradeMeCarsSpider {
 
-    static String url = 'http://www.trademe.co.nz/Browse/CategoryAttributeSearchResults.aspx?search=1&cid=268&sidebar=1&5=&14=Honda&15=&18=0&18=7500&24=2007&24=0&54=&searchRegion=100&sidebarSearch_keypresses=0&sidebarSearch_suggested=0'
+    static String url = 'http://www.trademe.co.nz/Browse/CategoryAttributeSearchResults.aspx?search=1&cid=268&sidebar=1&5=&14=&18=0&18=7500&24=2006&24=0&54=&searchRegion=100&sidebarSearch_keypresses=0&sidebarSearch_suggested=0'
 
     private static Site site = Site.me().setRetryTimes(5).setSleepTime(20)
 

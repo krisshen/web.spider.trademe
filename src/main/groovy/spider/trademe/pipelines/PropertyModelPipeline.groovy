@@ -2,10 +2,14 @@ package spider.trademe.pipelines
 
 import groovy.transform.Synchronized
 import org.apache.http.annotation.ThreadSafe
+import spider.trademe.utils.DateProcessor
 import spider.trademe.utils.GoogleSheets
 import spider.trademe.entities.Property
 import us.codecraft.webmagic.Task
 import us.codecraft.webmagic.pipeline.PageModelPipeline
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 /**
  * Created by shenk on 12/5/2016.
@@ -24,8 +28,18 @@ class PropertyModelPipeline implements PageModelPipeline {
 
         def mapData = [:]
         mapData['title'] = property.title.replace('\n', '')
-        mapData['trademe id'] = property.tradeMeID.replace('\n', '').replace('Listing #: ','')
-        mapData['listed date'] = property.listedDate.replace('\n', '').replace(' * Listed: ','')
+        mapData['trademe id'] = property.tradeMeID.replace('\n', '').replace('Listing #: ', '')
+
+//        //'Wed 7 Dec, 7:15 pm' -> 'Wed 7 Dec'
+//        def listedDateWithoutTime = property.listedDate.replace('\n', '').replace(' * Listed: ', '').split(',')[0]
+//        //'Wed 7 Dec' -> '7-Dec'
+//        def listedDateWithoutTimeSplit = listedDateWithoutTime.split(' ')
+//        def listedDateWithoutWeekday = listedDateWithoutTimeSplit[1] + listedDateWithoutTimeSplit[2]
+//        SimpleDateFormat dt = new SimpleDateFormat("ddMMM")
+//        Date date = dt.parse(listedDateWithoutWeekday)
+//        SimpleDateFormat dtNew = new SimpleDateFormat("MMdd")
+//        def formattedDate = '2016' + dtNew.format(date)
+        mapData['listed date'] = DateProcessor.process(property.listedDate)
 
         def key, value
         (0..property.headers.size() - 1).each { index ->
@@ -41,8 +55,7 @@ class PropertyModelPipeline implements PageModelPipeline {
                 //some addresses only have 3 lines, because suburb is same with district
                 if (locationList.length > 3) {
                     mapData['region'] = locationList[3]
-                }
-                else {
+                } else {
                     mapData['region'] = mapData['district']
                     mapData['district'] = mapData['suburb']
                 }
